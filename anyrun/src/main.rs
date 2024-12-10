@@ -16,7 +16,6 @@ use gtk::{gdk, gdk_pixbuf, gio, glib, prelude::*};
 use nix::unistd;
 use serde::Deserialize;
 use wl_clipboard_rs::copy;
-
 #[anyrun_macros::config_args]
 #[derive(Deserialize)]
 struct Config {
@@ -127,7 +126,7 @@ impl RelativeNum {
 
 impl From<&str> for RelativeNum {
     fn from(value: &str) -> Self {
-        let (ty, val) = value.split_once(':').expect("Invalid RelativeNum value");
+        let (ty, val) = value.split_once(':').expect("Invalid RelativeNum value test");
 
         match ty {
             "absolute" => Self::Absolute(val.parse().unwrap()),
@@ -464,7 +463,7 @@ fn activate(app: &gtk::Application, runtime_data: Rc<RefCell<RuntimeData>>) {
         .hexpand(true)
         .name(style_names::ENTRY)
         .build();
-
+    
     // Refresh the matches when text input changes
     let runtime_data_clone = runtime_data.clone();
     entry.connect_changed(move |entry| {
